@@ -1,0 +1,36 @@
+/*
+ * Copyright (c) 2012, Intel Corporation. All rights reserved.
+ * File revision: 04 October 2012
+ * Please see http://software.intel.com/html5/license/samples 
+ * and the included README.md file for license terms and conditions.
+ */
+
+/* Removes input element spin-buttons */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.info {
+    margin-top: 30px;
+}
+
+.bi {
+    font-style: italic;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.bh {
+    text-decoration: underline;
+    font-weight: bold;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.stickbottom {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}

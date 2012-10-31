@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PhoneGap Camera API Sample</title>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1"> 
+        <meta name="Copyright" content="&copy; 2012, Intel Corporation" />
+        <!--
+           * Copyright (c) 2012, Intel Corporation. All rights reserved.
+           * File revision: 04 October 2012
+           * Please see http://software.intel.com/html5/license/samples 
+           * and the included README.md file for license terms and conditions.
+        -->
+        
+        <script src="phonegap.js"></script>
+        <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.1.1.min.js"></script>
+        <script type="text/javascript" src="js/camera.js"></script>
+        
+        <link rel="stylesheet" href="css/jquery.mobile-1.1.1.min.css"> 
+        <link rel="stylesheet" href="css/camera.css" type="text/css">
+    </head>
+    
+    <body onload="onLoad()">
+		
+        <!-- Home Page (menu page) -->
+        <div data-role="page" id="home_page" data-theme="a">
+            <div data-role="header">
+                <h3>PhoneGap Camera API Sample</h3>
+                <a href="#settings_page" data-role="button" id="settings_button" data-theme="b" data-mini="true" class="ui-btn-right">Settings</a>
+            </div>
+            <div data-role="content">
+                <a href="#" data-role="button" id="open_camera_button">Capture a photo with camera</a>
+                <a href="#" data-role="button" id="open_lib_button">Open Photo Library</a>
+                <a href="#" data-role="button" id="open_alb_button">Open saved photo album</a>
+                
+                <div id="settings_info" class="ui-body ui-body-b info"></div>
+            </div>
+            <div data-role="footer" class="stickbottom">
+                <div><a rel="LICENSE" href="http://software.intel.com/html5/license/samples" target="_blank">License Terms and Conditions</a></div>
+            </div>
+        </div>
+        
+        <!-- Settings edit page -->
+        <div data-role="page" id="settings_page" data-theme="a">
+            <div data-role="header">
+                <a href="#home_page" id="settings_cancel_button" data-role="button" data-mini="true" class="ui-btn-left">Cancel</a>
+                <h3>Picture Settings</h3>
+                <a href="#home_page" id="settings_ok_button" data-role="button" data-theme="b" data-mini="true" class="ui-btn-right">Save</a>
+            </div>
+            
+            <div data-role="content">
+            
+                <form name="settings_form" id="settings_form">
+                    
+                    <div data-role="collapsible-set" data-inset="false" data-mini="true">
+
+                        <div data-role="collapsible" data-collapsed="false">
+                            <h3>Picture editing settings</h3>
+                        	
+                            <label for="quality_input" data-mini="true">Picture quality:</label>
+                            <input id="quality_input" name="quality_input" type="range" min="0" max="100" step="5" value="40" data-mini="true"/>
+                            
+                            <label for="width_input" data-mini="true">Target width:</label>
+                            <input id="width_input" name="width_input" type="range" min="50" max="1500" step="25" value="500" data-mini="true"/>
+                            
+                            <label for="height_input" data-mini="true">Target height:</label>
+                            <input id="height_input" name="height_input" type="range" min="50" max="1500" step="25" value="500" data-mini="true"/>
+                            
+                            <p><label data-mini="true">Picture editing:</label></p>
+                            <div data-role="controlgroup">
+                                <label for="edit_input" data-mini="true">Allow result zoom and crop</label>
+                                <input id="edit_input" name="edit_input" type="checkbox" checked data-mini="true">
+                                
+                                <label for="orient_input" data-mini="true">Allow orientation correction</label>
+                                <input id="orient_input" name="orient_input" type="checkbox" checked data-mini="true">
+                            </div>
+                    	</div>
+                    	
+                    	<div data-role="collapsible">
+                            <h3>Picture saving options</h3>
+                        	
+                            <label for="encod_input" data-mini="true">Choose encoding type:</label>
+                            <select id="encod_input" name="encod_input" data-mini="true">
+                              <option value="0" selected="selected">JPEG</option>
+                              <option value="1">PNG</option>
+                            </select>
+                                  
+                            <label for="save_input" data-mini="true">Save picture to photo album</label>
+                            <select name="save_input" id="save_input" data-role="slider" data-mini="true" data-theme="a" data-track-theme="a">
+                                <option value="false">No</option>
+                            	<option value="true" selected="selected">Yes</option>
+                            </select>
+                    	</div>
+                        
+                        <div data-role="collapsible">
+                            <h3>Picture opening options</h3>
+                            <label for="media_input" data-mini="true">Choose media type:</label>
+                            <select id="media_input" name="media_input" data-mini="true">
+                              <option value="0" selected="selected">Pictures</option>
+                              <option value="1">Videos</option>
+                              <option value="2">All media</option>
+                            </select>
+                        </div>
+                    </div>
+                  </form>
+            </div>
+        </div>
+        
+        <!-- Camera capture result page -->
+        <div data-role="page" id="result_page" data-theme="a">
+            <div data-role="header">
+                <h3>Result</h3>
+                <a href="#home_page" id="home_button" data-role="button" data-theme="b" data-mini="true" class="ui-btn-right">Back to menu</a>
+            </div>
+            <div data-role="content">
+                <h3>Result picture:</h3>
+                <img id="pic" src="" style="display: none; border: 2px black;"/>
+            </div>
+        </div>
+	</body>
+</html>

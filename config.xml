@@ -1,0 +1,29 @@
+<?xml version   ="1.0" encoding="UTF-8" ?>
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "com.intel.sample"
+    versioncode = "1"
+    version     = "1.0.0">
+    
+    <name>PhoneGap Camera API Sample</name>
+    
+    <content src="index.html"/>
+    <icon src="icon.png" width="256" height="256" />
+    
+    <description>
+        Capture a photo using a device camera and edit (zoom and crop) the picture.
+    </description>
+    
+    <author href="http://software.intel.com/html5">
+        Intel Corporation
+    </author>
+        
+    <preference name="phonegap-version" value="2.0.0" />
+    <feature name="http://api.phonegap.com/1.0/camera"/>
+    <feature name="http://api.phonegap.com/1.0/file"/>      
+
+    <!-- for Android -->
+    <preference name="orientation" value="portrait" />
+    <preference name="android-minSdkVersion" value="9" />
+</widget>
+
