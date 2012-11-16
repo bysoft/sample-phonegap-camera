@@ -14,9 +14,12 @@ var settings;
 function Settings() {
     
     // Opening options:
-    this.destinationType = Camera.DestinationType.FILE_URI;     // cameraOptions: destinationType
-    this.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;    // cameraOptions: sourceType
-    this.mediaType = Camera.MediaType.PICTURE;                  // cameraOptions: mediaType
+    if ((typeof Camera !== "undefined")) {
+        
+        this.destinationType = Camera.DestinationType.FILE_URI;     // cameraOptions: destinationType
+        this.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;    // cameraOptions: sourceType
+        this.mediaType = Camera.MediaType.PICTURE;                  // cameraOptions: mediaType
+    }
     
     // Photo quality and editing options:
     this.quality = 40;                                          // cameraOptions: quality
@@ -26,16 +29,24 @@ function Settings() {
     this.correctOrientation = true;                             // cameraOptions: correctOrientation
     
     // Saving options:
-    this.encodingType = Camera.EncodingType.JPEG;               // cameraOptions: encodingType
-    this.saveToPhotoAlbum = true;                               // cameraOptions: saveToPhotoAlbum
+    this.encodingType = (typeof Camera !== "undefined") ? Camera.EncodingType.JPEG : 0;               // cameraOptions: encodingType
+    this.saveToPhotoAlbum = true;                                                                     // cameraOptions: saveToPhotoAlbum
     
     // iOS-specific (to specify popover location in iPad):
-    this.popoverOptions = new CameraPopoverOptions(220, 600, 320, 480, Camera.PopoverArrowDirection.ARROW_DOWN);    // cameraOptions: popoverOptions
+    this.popoverOptions = ((typeof Camera !== "undefined") && (typeof CameraPopoverOptions !== "undefined")) ? new CameraPopoverOptions(220, 600, 320, 480, Camera.PopoverArrowDirection.ARROW_DOWN) : null;    // cameraOptions: popoverOptions
 }
 
 // Called on bodyLoad 
 function onLoad() {
+    
     document.addEventListener("deviceready", onDeviceReady, false);
+    
+    settings = new Settings();
+    // Read and save cameraOptions from the "settings_form" element
+    applySettings();
+    
+    $("#settings_ok_button").bind("click", applySettings); 
+    $("#settings_cancel_button").bind("click", restoreSettings); 
 }
 
 // Called when Cordova is fully loaded (and calling to Cordova functions has become safe)
@@ -43,19 +54,13 @@ function onDeviceReady() {
     
     // Overwrite the default behavior of the device back button
     document.addEventListener("backbutton", onBackPress, false);
+    fillSettingsInfo("settings_info");
     
     // Bind application button elements with their functionality
     $("#open_camera_button").bind ("click", onCapture);
     $("#open_lib_button").bind ("click", onCapture);
     $("#open_alb_button").bind ("click", onCapture);
-    $("#settings_ok_button").bind("click", applySettings); 
-    $("#settings_cancel_button").bind("click", restoreSettings); 
     $("#home_button").bind("click", removeTemporaryFiles); 
-    
-    settings = new Settings();
-    // Read and save cameraOptions from the "settings_form" element
-    applySettings();
-    fillSettingsInfo("settings_info");
 }
 
 // Overwrites the default behavior of the device back button
@@ -228,8 +233,15 @@ function fillSettingsInfo(infoDivName) {
     }
     
     var settingsInfo = getElement(infoDivName);
+    if (typeof Camera === "undefined") {
+        settingsInfo.innerHTML = "<h3 style='text-decoration: underline;'>The Cordova Camera API is inaccessible</h3>";
+    }
+    else {
+        settingsInfo.innerHTML = "";
+    }
+    
     if (settingsInfo != null) {
-        settingsInfo.innerHTML = "<h3>Settings: </h3>" +
+        settingsInfo.innerHTML += "<h3>Settings: </h3>" +
                                  "<table>" +
                                  "<tr><td class='bh'>Editing options: </td></tr>" + 
                                  "<tr><td class='bi'>Quality:</td><td>" + settings.quality + " of 100</td></tr>" +

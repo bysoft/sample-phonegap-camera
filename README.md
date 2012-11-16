@@ -9,6 +9,12 @@ License Information Follows
 * index.html
 * css/camera.css
 * js/camera.js
+* abstract.txt
+* app.json
+* config.xml
+* README.md
+* icon.png
+* screenshot.png
 
 Copyright (c) 2012, Intel Corporation, version: 15 October 2012
 
@@ -57,10 +63,3 @@ Cordova (PhoneGap) Library
 
 * source:  http://www.phonegap.com/
 * license:  http://www.apache.org/licenses/LICENSE-2.0.html
-
-
-IMAGES
-------
-All images and icons were created by Intel Corporation and are licensed
-under the Creative Commons Attribution 3.0 license 
-http://creativecommons.org/licenses/by/3.0/us/
